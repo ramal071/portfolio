@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramal Pathmila | ICT Professional</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal-50: #E1F5EE;
+    --teal-100: #9FE1CB;
+    --teal-400: #1D9E75;
+    --teal-600: #0F6E56;
+    --teal-800: #085041;
+    --teal-900: #04342C;
+    --gray-50: #F1EFE8;
+    --gray-100: #D3D1C7;
+    --gray-400: #888780;
+    --gray-600: #5F5E5A;
+    --gray-800: #444441;
+    --bg: #FAFAF8;
+    --surface: #FFFFFF;
+    --text: #1a1a18;
+    --muted: #5F5E5A;
+    --accent: #1D9E75;
+    --accent-dark: #0F6E56;
+    --border: #E2E0D8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem; letter-spacing: 0.01em;
+    color: var(--text); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 80px 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--teal-50) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--teal-50); color: var(--teal-600);
+    font-size: 13px; font-weight: 500; letter-spacing: 0.05em;
+    padding: 6px 14px; border-radius: 100px;
+    border: 1px solid var(--teal-100);
+    margin-bottom: 1.5rem;
+  }
+  .badge-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.3); }
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--text); margin-bottom: 1rem;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 480px; margin-bottom: 2rem; line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: white;
+    padding: 12px 28px; border-radius: 100px;
+    font-size: 15px; font-weight: 500; text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    padding: 12px 28px; border-radius: 100px;
+    font-size: 15px; font-weight: 500; text-decoration: none;
+    border: 1px solid var(--border); transition: border-color 0.2s, transform 0.1s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  /* Hero card */
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+  }
+  .profile-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2rem;
+    width: 100%; max-width: 340px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+  }
+  .profile-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal-400), var(--teal-800));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem; color: white;
+    margin-bottom: 1rem;
+  }
+  .profile-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem; margin-bottom: 4px;
+  }
+  .profile-card p {
+    font-size: 13px; color: var(--muted); margin-bottom: 1.5rem;
+  }
+  .profile-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .stat-box {
+    background: var(--gray-50); border-radius: 12px;
+    padding: 14px; text-align: center;
+  }
+  .stat-box .num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem; color: var(--accent); display: block;
+  }
+  .stat-box .lbl {
+    font-size: 12px; color: var(--muted); font-weight: 500;
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.15; margin-bottom: 1rem;
+  }
+  .section-desc {
+    font-size: 1rem; color: var(--muted);
+    max-width: 560px; margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  #about { background: var(--surface); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+  }
+  .about-text p { color: var(--muted); margin-bottom: 1rem; }
+  .about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+  .highlight-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.25rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  .hi-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--teal-50); display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .hi-text h4 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .hi-text p { font-size: 13px; color: var(--muted); }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg); }
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 2rem; position: relative; padding-bottom: 2.5rem;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute; left: 216px; top: 8px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item:last-child::before { display: none; }
+  .t-date {
+    font-size: 13px; font-weight: 500; color: var(--muted);
+    padding-top: 4px; text-align: right;
+  }
+  .t-dot {
+    position: absolute; left: 209px; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+  }
+  .t-content {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    transition: box-shadow 0.2s;
+  }
+  .t-content:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+  .t-role { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+  .t-org { font-size: 14px; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .t-desc { font-size: 14px; color: var(--muted); }
+
+  /* SKILLS */
+  #skills { background: var(--surface); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+  }
+  .skill-card h4 {
+    font-size: 14px; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    font-size: 13px; font-weight: 500;
+    padding: 6px 14px; border-radius: 100px;
+    background: var(--teal-50); color: var(--teal-800);
+    border: 1px solid var(--teal-100);
+  }
+  .skill-tag.gray {
+    background: var(--gray-50); color: var(--gray-800);
+    border-color: var(--gray-100);
+  }
+
+  /* EDUCATION */
+  #education { background: var(--bg); }
+  .edu-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .edu-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 1.75rem;
+    position: relative; overflow: hidden;
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; background: var(--accent);
+  }
+  .edu-degree {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem; margin-bottom: 4px;
+  }
+  .edu-school {
+    font-size: 14px; color: var(--accent); font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .edu-year {
+    font-size: 13px; color: var(--muted);
+  }
+
+  /* CONTACT */
+  #contact { background: var(--surface); }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .contact-info p { color: var(--muted); margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 1rem 1.25rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 14px; text-decoration: none; color: var(--text);
+    font-size: 14px; font-weight: 500;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--teal-50); display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .contact-cta {
+    background: linear-gradient(135deg, var(--teal-400), var(--teal-800));
+    border-radius: 24px; padding: 3rem;
+    color: white; text-align: center;
+  }
+  .contact-cta h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem; margin-bottom: 0.75rem;
+  }
+  .contact-cta p { opacity: 0.85; margin-bottom: 1.5rem; font-size: 15px; }
+  .btn-white {
+    display: inline-block;
+    background: white; color: var(--teal-800);
+    padding: 12px 28px; border-radius: 100px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    transition: transform 0.1s;
+  }
+  .btn-white:hover { transform: translateY(-1px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.5);
+    text-align: center; padding: 2rem;
+    font-size: 13px;
+  }
+  footer span { color: var(--teal-400); }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    animation: fadeIn 0.6s ease forwards;
+  }
+  .fade-in:nth-child(1) { animation-delay: 0.1s; }
+  .fade-in:nth-child(2) { animation-delay: 0.2s; }
+  .fade-in:nth-child(3) { animation-delay: 0.3s; }
+  .fade-in:nth-child(4) { animation-delay: 0.4s; }
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-inner, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-visual { display: none; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .timeline-item::before, .t-dot { display: none; }
+    .t-date { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Ramal Pathmila</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge fade-in">
+        <span class="badge-dot"></span>
+        Available for opportunities
+      </div>
+      <h1 class="fade-in">Ramal<br><em>Pathmila</em></h1>
+      <p class="hero-sub fade-in">ICT Technical Officer with expertise in network infrastructure, 
+        IT support, and systems administration across education and corporate sectors in Sri Lanka.</p>
+      <div class="hero-actions fade-in">
+        <a href="#contact" class="btn-primary">Get In Touch</a>
+        <a href="#experience" class="btn-outline">View Experience</a>
+      </div>
+    </div>
+    <div class="hero-visual fade-in">
+      <div class="profile-card">
+        <div class="profile-avatar">RP</div>
+        <h3>Ramal Pathmila</h3>
+        <p>ICT Technical Officer (Grade 3)<br>Open University of Sri Lanka</p>
+        <div class="profile-stats">
+          <div class="stat-box">
+            <span class="num">5+</span>
+            <span class="lbl">Years Experience</span>
+          </div>
+          <div class="stat-box">
+            <span class="num">4</span>
+            <span class="lbl">Organizations</span>
+          </div>
+          <div class="stat-box">
+            <span class="num">MIT</span>
+            <span class="lbl">Kelaniya Uni</span>
+          </div>
+          <div class="stat-box">
+            <span class="num">BIT</span>
+            <span class="lbl">Moratuwa Uni</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Dedicated IT professional serving academia & industry</h2>
+        <p>I am an experienced ICT professional currently serving as an ICT Technical Officer (Grade 3) at 
+          The Open University of Sri Lanka. With a strong foundation in network administration and IT infrastructure management, 
+          I have supported diverse organizations across the educational and corporate sectors.</p>
+        <p>My career spans roles in network technician and administrator positions, where I developed deep expertise in managing, 
+          securing, and troubleshooting complex network environments. I am passionate about leveraging technology to enhance operational 
+          efficiency and ensure seamless connectivity.</p>
+        <p>I hold a Master's degree from the University of Kelaniya and a Bachelor's degree from the University of Moratuwa, 
+          two of Sri Lanka's premier academic institutions.</p>
+      </div>
+      
+      <div class="about-highlights">
+        <div class="highlight-item">
+          <div class="hi-icon">🌐</div>
+          <div class="hi-text">
+            <h4>Network Infrastructure</h4>
+            <p>Designing, deploying and maintaining enterprise-grade network systems</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="hi-icon">💻</div>
+          <div class="hi-text">
+            <h4>Web Development</h4>
+            <p>Building full-stack web applications using Laravel, PHP, Angular and Node.js</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="hi-icon">🗄️</div>
+          <div class="hi-text">
+            <h4>Database Management</h4>
+            <p>Designing and managing relational databases using MySQL across multiple projects</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <div class="hi-icon">🛠️</div>
+          <div class="hi-text">
+            <h4>Technical Support</h4>
+            <p>Delivering reliable IT support and troubleshooting across diverse environments</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <p class="section-label">Career</p>
+    <h2 class="section-title">Work Experience</h2>
+    <p class="section-desc">A journey across education, telecommunications, and corporate IT environments in Sri Lanka.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="t-date">Present</div>
+        <div class="t-dot"></div>
+        <div class="t-content">
+          <div class="t-role">ICT Technical Officer – Grade 3</div>
+          <div class="t-org">The Open University of Sri Lanka</div>
+          <div class="t-desc">Managing IT infrastructure and providing comprehensive technical support within a large-scale 
+            distance education environment. Responsible for network administration, system maintenance, and ensuring uninterrupted ICT 
+            services across the university.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="t-date">Previous</div>
+        <div class="t-dot"></div>
+        <div class="t-content">
+          <div class="t-role">ICT Technical Officer (Assignment Basic)</div>
+          <div class="t-org">Sri Palee Campus, University of Colombo</div>
+          <div class="t-desc">Provided ICT technical support and infrastructure management for the campus. 
+            Maintained network systems, user workstations, and educational technology resources to support academic activities.</div>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="t-date">Previous</div>
+        <div class="t-dot"></div>
+        <div class="t-content">
+          <div class="t-role">Network Technician</div>
+          <div class="t-org">Ezy Corporation (Pvt) Ltd</div>
+          <div class="t-desc">Worked on network installation, configuration, and troubleshooting tasks. Supported clients with connectivity solutions and maintained network equipment across various sites.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="t-date">Earlier</div>
+        <div class="t-dot"></div>
+        <div class="t-content">
+          <div class="t-role">Network Administrator</div>
+          <div class="t-org">SK International Holdings and Network Solution Company (Pvt) Ltd</div>
+          <div class="t-desc">Managed the company's network infrastructure, overseeing routers, switches, firewalls and servers. 
+            Ensured network uptime, security, and performance while troubleshooting issues and implementing improvements to the corporate network.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <p class="section-label">Expertise</p>
+    <h2 class="section-title">Technical Skills</h2>
+    <p class="section-desc">Core competencies built across years of hands-on experience in IT infrastructure and support.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h4>Networking</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Network Troubleshooting</span>
+          <span class="skill-tag">Upgrades</span>
+          <span class="skill-tag">Expansions</span>
+          <span class="skill-tag">New Installations</span>
+          <span class="skill-tag">LAN / WAN</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Hardware</h4>
+        <div class="skill-tags">
+          <span class="skill-tag gray">Hardware Repair</span>
+          <span class="skill-tag gray">PC Assembly</span>
+          <span class="skill-tag gray">Peripheral Setup</span>
+          <span class="skill-tag gray">Fault Diagnosis</span>
+          <span class="skill-tag gray">Printer & Scanner Support</span>
+          <span class="skill-tag gray">BIOS Configuration</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Support & Operations</h4>
+        <div class="skill-tags">
+          <span class="skill-tag gray">Technical Support</span>
+          <span class="skill-tag gray">Troubleshooting</span>
+          <span class="skill-tag gray">IT Helpdesk</span>
+          <span class="skill-tag gray">System Monitoring</span>
+          <span class="skill-tag gray">Documentation</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Domain Knowledge</h4>
+        <div class="skill-tags">
+          <span class="skill-tag gray">Education Sector IT</span>
+          <span class="skill-tag gray">Corporate IT</span>
+          <span class="skill-tag gray">Network Design</span>
+          <span class="skill-tag gray">IT Project Management</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h4>Web Development</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Laravel</span>
+          <span class="skill-tag">PHP</span>
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Angular</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <p class="section-label">Academic Background</p>
+    <h2 class="section-title">Education</h2>
+    <p class="section-desc">Strong academic foundation from Sri Lanka's leading universities and institutions.</p>
+
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-degree">Master of Information Technology</div>
+        <div class="edu-school">University of Kelaniya, Sri Lanka</div>
+        <div class="edu-year">Postgraduate Degree</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Bachelor of Information Technology</div>
+        <div class="edu-school">University of Moratuwa, Sri Lanka</div>
+        <div class="edu-year">Undergraduate (External) Degree</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Higher National Diploma in IT</div>
+        <div class="edu-school">Sri Lanka Institute of Advanced Technological Education</div>
+        <div class="edu-year">Professional Diploma (NVQ 6)</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">Diploma in Computer Hardware with Networking</div>
+        <div class="edu-school">Vocational Training Center, Dehiwala</div>
+        <div class="edu-year">Professional Diploma</div>
+      </div>
+       <div class="edu-card">
+        <div class="edu-degree">Computer Fundamentals & Pc Application</div>
+        <div class="edu-school">Ministry of Education, Sri Lanka</div>
+        <div class="edu-year">Professional Certificate</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">General Certificate of Education</div>
+        <div class="edu-school">St Aloysius College, Rathnapura</div>
+        <div class="edu-year">A/L: Physical Science 3S</div>
+        <div class="edu-year">O/L: 5A & 4B</div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <p class="section-label">GitHub</p>
+    <h2 class="section-title">My Projects</h2>
+    <p class="section-desc">A selection of web development projects I have built and published on GitHub.</p>
+
+    <div class="skills-grid">
+
+      <div class="skill-card" style="border-radius:16px; padding:1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem;">
+          <span style="font-size:1.5rem;">🛒</span>
+          <span style="font-size:12px; background:var(--teal-50); color:var(--teal-800); padding:4px 10px; border-radius:100px; border:1px solid var(--teal-100);">PHP</span>
+        </div>
+        <h4 style="font-size:16px; font-weight:600; margin-bottom:0.5rem;">E-Commerce Website</h4>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:1rem;">Full e-commerce platform built with PHP & Laravel. Features login, registration, product management and secure checkout.</p>
+        <a href="https://github.com/ramal071/E-Comm" target="_blank" style="font-size:13px; font-weight:500; color:var(--accent); text-decoration:none;">View on GitHub →</a>
+      </div>
+
+      <div class="skill-card" style="border-radius:16px; padding:1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem;">
+          <span style="font-size:1.5rem;">🍽️</span>
+          <span style="font-size:12px; background:var(--teal-50); color:var(--teal-800); padding:4px 10px; border-radius:100px; border:1px solid var(--teal-100);">PHP</span>
+        </div>
+        <h4 style="font-size:16px; font-weight:600; margin-bottom:0.5rem;">Kuruwita Foods</h4>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:1rem;">Restaurant Management System built with Laravel. Includes user authentication, menu and order management features.</p>
+        <a href="https://github.com/ramal071/Kuruwita-Foods" target="_blank" style="font-size:13px; font-weight:500; color:var(--accent); text-decoration:none;">View on GitHub →</a>
+      </div>
+
+      <div class="skill-card" style="border-radius:16px; padding:1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem;">
+          <span style="font-size:1.5rem;">📱</span>
+          <span style="font-size:12px; background:var(--teal-50); color:var(--teal-800); padding:4px 10px; border-radius:100px; border:1px solid var(--teal-100);">TypeScript</span>
+        </div>
+        <h4 style="font-size:16px; font-weight:600; margin-bottom:0.5rem;">Social Media App</h4>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:1rem;">Micro-blogging social media platform built with Angular, MongoDB and Node.js with interactive user features.</p>
+        <a href="https://github.com/ramal071/Social-Media---Micro-Blogging-System-" target="_blank" style="font-size:13px; font-weight:500; color:var(--accent); text-decoration:none;">View on GitHub →</a>
+      </div>
+
+      <div class="skill-card" style="border-radius:16px; padding:1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem;">
+          <span style="font-size:1.5rem;">🚗</span>
+          <span style="font-size:12px; background:var(--teal-50); color:var(--teal-800); padding:4px 10px; border-radius:100px; border:1px solid var(--teal-100);">HTML</span>
+        </div>
+        <h4 style="font-size:16px; font-weight:600; margin-bottom:0.5rem;">Kurunagala Motors</h4>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:1rem;">Web application for a motor business built with the Laravel Framework, featuring robust functionality and security.</p>
+        <a href="https://github.com/ramal071/Kurunagala_Motors" target="_blank" style="font-size:13px; font-weight:500; color:var(--accent); text-decoration:none;">View on GitHub →</a>
+      </div>
+
+      <div class="skill-card" style="border-radius:16px; padding:1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem;">
+          <span style="font-size:1.5rem;">📦</span>
+          <span style="font-size:12px; background:var(--teal-50); color:var(--teal-800); padding:4px 10px; border-radius:100px; border:1px solid var(--teal-100);">JavaScript</span>
+        </div>
+        <h4 style="font-size:16px; font-weight:600; margin-bottom:0.5rem;">IMS – Inventory System</h4>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:1rem;">Inventory & order tracking system with Laravel 9. Includes stock management, multi-auth (User/Vendor/Admin) and product search.</p>
+        <a href="https://github.com/ramal071/IMS" target="_blank" style="font-size:13px; font-weight:500; color:var(--accent); text-decoration:none;">View on GitHub →</a>
+      </div>
+
+      <div class="skill-card" style="border-radius:16px; padding:1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem;">
+          <span style="font-size:1.5rem;">✈️</span>
+          <span style="font-size:12px; background:var(--teal-50); color:var(--teal-800); padding:4px 10px; border-radius:100px; border:1px solid var(--teal-100);">PHP</span>
+        </div>
+        <h4 style="font-size:16px; font-weight:600; margin-bottom:0.5rem;">Tours & Travel Management</h4>
+        <p style="font-size:13px; color:var(--muted); margin-bottom:1rem;">A Tours and Travel Management System for handling bookings, packages and travel operations built with Laravel.</p>
+        <a href="https://github.com/ramal071/Tours-and-Travel-Management-System" target="_blank" style="font-size:13px; font-weight:500; color:var(--accent); text-decoration:none;">View on GitHub →</a>
+      </div>
+
+    </div>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="https://github.com/ramal071" target="_blank" class="btn-outline">View All on GitHub</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="section-inner">
+    <p class="section-label">Achievements</p>
+    <h2 class="section-title">Certificates</h2>
+    <p class="section-desc">Professional certifications and courses I have completed.</p>
+
+    <div class="edu-grid">
+
+      <div class="edu-card">
+        <div class="edu-degree">Network Support and Security</div>
+        <div class="edu-school">Cisco</div>
+        <div class="edu-year">Apr 2026</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree">AI/ML Engineer</div>
+        <div class="edu-school">COD Education - SLIIT</div>
+        <div class="edu-year">Jul 2025</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree">Network Technician Career Path</div>
+        <div class="edu-school">Cisco</div>
+        <div class="edu-year">Jan 2025</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree">Computer Hardware Basics</div>
+        <div class="edu-school">Cisco</div>
+        <div class="edu-year">Jun 2025</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree">Foundations of Cybersecurity</div>
+        <div class="edu-school">Coursera</div>
+        <div class="edu-year">Oct 2023</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree">Daham Pasal Final Certificate Exam</div>
+        <div class="edu-school">Ministry of Education</div>
+        <div class="edu-year">Jan 2012</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p class="section-label">Let's Connect</p>
+        <h2 class="section-title">Get In Touch</h2>
+        <p>Whether you're looking to collaborate, have an opportunity to discuss, or simply want to connect — I'd love to hear from you.</p>
+        <div class="contact-links">
+          <a href="#" class="contact-link">
+            <div class="contact-icon">👤</div>
+            Mahawaththa Gamage Ramal Pathmila Yasasiri
+          </a>
+          <a href="https://www.linkedin.com/in/ramal-pathmila-07a303158" class="contact-link" target="_blank">
+            <div class="contact-icon">💼</div>
+            LinkedIn Profile
+          </a>
+          <a href="#" class="contact-link">
+            <div class="contact-icon">🏠</div>
+            Permanent: Kuruwita, Rathnapura <br>
+            Temporary: Rukmalgama, Pannipitiya
+          </a>          
+          <a href="tel:+94763350071" class="contact-link">
+            <div class="contact-icon">📞</div>
+            +94763350071
+          </a>          
+          <a href="mailto:yourname@email.com" class="contact-link">
+            <div class="contact-icon">📧</div>
+            ramal.pathmila071@email.com
+          </a>
+        </div>
+      </div>
+      <div class="contact-cta">
+        <h3>Open to Opportunities</h3>
+        <p>I'm always interested in connecting with fellow IT professionals and exploring new challenges in network infrastructure 
+          and ICT management.</p>
+        <a href="https://www.linkedin.com/in/ramal-pathmila-07a303158" class="btn-white" target="_blank">Connect on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Ramal Pathmila · ICT Technical Officer · Sri Lanka ·</p>
+</footer>
+
+</body>
+</html>
