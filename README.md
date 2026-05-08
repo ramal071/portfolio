@@ -4,7 +4,7 @@ A personal portfolio website built with pure HTML and CSS,
 showcasing my professional experience, skills, projects and education.
 
 ## Live Site
-https://ramal071.github.io
+https://github.com/ramal071/portfolio
 
 ## Sections
 - About Me
